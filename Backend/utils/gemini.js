@@ -1,10 +1,12 @@
 import dotenv from "dotenv";
+
+dotenv.config();
 const getGeminiResponse = async (message) => {
       // const { message } = req.body;
 
   if (!message) {
-    return res.status(400).json({ error: "Message is required" });
-  }
+    throw new Error("Message is required");
+}
 
   try {
     const response = await fetch(
@@ -25,15 +27,17 @@ const getGeminiResponse = async (message) => {
     );
 
     const data = await response.json();
+    console.log(data);
+    
     const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
   ;
     
     // console.log(data.candidates[0].content[0].parts[0].text);
     
 return text;
-  } catch (err) {
+  } catch(err){
     console.log(err);
-    res.status(500).json({ error: "Something went wrong" });
-  }
+    throw err;
+}
 }
 export default getGeminiResponse;

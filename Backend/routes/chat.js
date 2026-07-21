@@ -11,6 +11,7 @@ router.post("/test", async (req, res) => {
         title: "Test Thread",
 
     });
+    
     const response = await newThread.save();
     res.send(response);
     } catch (err) {
@@ -80,9 +81,17 @@ router.post("/chat",async(req,res)=>{
           thread.messages.push({role:"user",content:message});
         }
        const assistanReply= await getGeminiResponse(message);
+       const assistantReply = await getGeminiResponse(message);
+
+if (!assistantReply) {
+  return res.status(503).json({
+    error: "AI service is temporarily unavailable. Please try again later."
+  });
+}
+       console.log("Assistant Reply:", assistanReply);
        thread.messages.push({role:"assistant",content:assistanReply})
        thread.updatedAt=new Date();
-
+        console.log(thread.messages);
        await thread.save();
        res.json({reply:assistanReply})
 

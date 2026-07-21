@@ -1,0 +1,61 @@
+.chat{
+max-width: 700px;
+overflow-y: auto;
+ scrollbar-width: thin;          /* Firefox */
+  scrollbar-color: #555 #202123;
+padding: 8rem;
+}
+.chat::-webkit-scrollbar {
+  width: 8px;
+}
+.userDiv {
+    display: flex;
+    justify-content: flex-end;
+    margin: 16px 0;
+}
+.chat::-webkit-scrollbar-track {
+  background: #202123;
+  border-radius: 10px;
+}
+.gptDiv{
+  text-align: left;
+  font-size: 0.9rem;
+}
+.chat::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 10px;
+}
+
+.chat::-webkit-scrollbar-thumb:hover {
+  background: #777;
+}
+.userMessage {
+    background: #2f2f2f;
+    color: #fff;
+    padding: 12px 18px;
+    border-radius: 18px;
+    max-width: 70%;
+    width: fit-content;
+    word-wrap: break-word;
+    line-height: 1.5;
+}
+.hljs{border-radius: 14px !important;
+
+}
+pre{
+  white-space: pre-wrap;
+}
+.gptMessage p{
+    display: inline;
+}
+.cursor {
+    margin-left: 0;
+    display: inline;
+    animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink{
+    50%{
+        opacity:0;
+    }
+}
