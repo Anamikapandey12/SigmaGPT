@@ -3,6 +3,7 @@ import "./Sidebar.css";
 import { useContext } from 'react';
 import { Context } from '../Context';
 import { v4 as uuid } from "uuid";
+import Thread from '../../Backend/models/Thread';
 
 function Sidebar() {
     const{allThreads,setAllThreads,currThreadId,threadId,setNewChat,setPrompt,setReply,setCurrThreadId,setPrevChats}=useContext(Context)
@@ -28,7 +29,7 @@ getAllThreads()
         setNewChat(true),
         setPrompt(""),
         setReply(null),
-        setCurrThreadId(uuid),
+        setCurrThreadId(uuid()),
         setPrevChats([])
 
       
@@ -51,6 +52,22 @@ getAllThreads()
             }
 
         }
+        const deleteThread=async (threadId)=>{
+            try {
+                const response=await fetch(`http://localhost:8080/api/thread/${threadId}`,{method:"DELETE"});
+                const res=await response.json();
+                console.log(res);
+                setAllThreads(prev=>prev.filter(thread=>thread.threadId != threadId));
+                if(threadId===currThreadId){
+                    createNewChat()
+                }
+                
+                
+            } catch (err) {
+                console.log(err);
+                
+            }
+        }
     return (
         <section className='Sidebar'>
             {/* new chat btn */}
@@ -67,7 +84,13 @@ getAllThreads()
                 allThreads?.map((thread,idx)=>(
                        <li key={thread.threadId} onClick={()=>changeThread(thread.threadId)} 
                        className={thread.threadId===currThreadId ?"highlight":""}>
-                         {thread.title}</li>
+                         {thread.title}
+                         <i className='fa-solid fa-trash' onClick={(e)=>{
+                                 e.stopPropagation();
+                                 deleteThread(thread.threadId);
+                         }}></i>
+                         </li>
+
                 ))
              }
              
