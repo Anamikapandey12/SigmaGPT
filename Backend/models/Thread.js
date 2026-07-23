@@ -28,12 +28,12 @@ const ThreadSchema=new mongoose.Schema({
     messages:[MessageSchema],
     createdAt:{
         type:Date,
-        dafault:Date.now
+        default:Date.now
     },
     updatedAt:{
          type:Date,
-        dafault:Date.now
-    }
+        default:Date.now
+    },
 
 });
 export default mongoose.model("Thread",ThreadSchema);
