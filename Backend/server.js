@@ -2,7 +2,9 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
-import chatRoutes from "./routes/chat.js";
+
+import authRoutes from "./routes/auth.js";
+import chatRoutes from "./routes/chat.js"; // ✅ Correct
 
 
 dotenv.config();
@@ -11,7 +13,10 @@ const app = express();
 const Port = 8080;
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+
+app.use("/api/auth", authRoutes);
 app.use("/api", chatRoutes);
 
 app.listen(Port, () => {

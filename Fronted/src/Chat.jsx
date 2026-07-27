@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import "./Chat.css"
-import { Context } from '../Context'
+import { Context } from './Context'
 import { useContext ,useState,useDeferredValue, useRef} from 'react'
 import ReactMarkdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";

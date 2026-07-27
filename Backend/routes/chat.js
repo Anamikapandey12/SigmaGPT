@@ -5,6 +5,7 @@ import getGeminiResponse from "../utils/gemini.js";
 const router = express.Router();
 
 router.post("/test", async (req, res) => {
+  const assistantReply = await getGeminiResponse(message);
   try {
     const newThread = new Thread({
         threadId: "123456",

@@ -2,9 +2,7 @@ import User from "../models/User.js";
 import httpStatus from "http-status";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
-
-dotenv.config();
+import validator from "validator";
 
 const login = async (req, res) => {
     const { email, password } = req.body;
@@ -14,6 +12,12 @@ const login = async (req, res) => {
         if (!email || !password) {
             return res.status(httpStatus.BAD_REQUEST).json({
                 message: "All fields are required",
+            });
+        }
+
+        if (!validator.isEmail(email)) {
+            return res.status(httpStatus.BAD_REQUEST).json({
+                message: "Invalid email format",
             });
         }
 
@@ -52,6 +56,11 @@ const login = async (req, res) => {
             success: true,
             message: "Login successful",
             token,
+            user: {
+                id: existUser._id,
+                name: existUser.name,
+                email: existUser.email,
+            },
         });
 
     } catch (err) {
@@ -71,6 +80,18 @@ const register = async (req, res) => {
         if (!name || !email || !password) {
             return res.status(httpStatus.BAD_REQUEST).json({
                 message: "All fields are required",
+            });
+        }
+
+        if (!validator.isEmail(email)) {
+            return res.status(httpStatus.BAD_REQUEST).json({
+                message: "Invalid email format",
+            });
+        }
+
+        if (password.length < 6) {
+            return res.status(httpStatus.BAD_REQUEST).json({
+                message: "Password must be at least 6 characters long",
             });
         }
 
@@ -97,9 +118,22 @@ const register = async (req, res) => {
 
         await newUser.save();
 
+        // Generate JWT so user is logged in immediately after registering
+        const token = jwt.sign(
+            { userId: newUser._id },
+            process.env.JWT_SECRET,
+            { expiresIn: "7d" }
+        );
+
         return res.status(httpStatus.CREATED).json({
             success: true,
             message: "User registered successfully",
+            token,
+            user: {
+                id: newUser._id,
+                name: newUser.name,
+                email: newUser.email,
+            },
         });
 
     } catch (err) {

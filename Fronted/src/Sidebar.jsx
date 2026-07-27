@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import "./Sidebar.css";
 import { useContext } from 'react';
-import { Context } from '../Context';
+import { Context } from './Context';
 import { v4 as uuid } from "uuid";
-import Thread from '../../Backend/models/Thread';
+
 
 function Sidebar() {
     const{allThreads,setAllThreads,currThreadId,threadId,setNewChat,setPrompt,setReply,setCurrThreadId,setPrevChats}=useContext(Context)
