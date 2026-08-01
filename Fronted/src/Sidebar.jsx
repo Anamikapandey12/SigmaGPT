@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState ,useRef} from 'react'
 import "./Sidebar.css";
 import { useContext } from 'react';
 import { Context } from './Context';
@@ -6,7 +6,9 @@ import { v4 as uuid } from "uuid";
 
 
 function Sidebar() {
-    const{allThreads,setAllThreads,currThreadId,threadId,setNewChat,setPrompt,setReply,setCurrThreadId,setPrevChats}=useContext(Context)
+    const{allThreads,setAllThreads,currThreadId,threadId,setNewChat,setPrompt,setReply,setCurrThreadId,setPrevChats,theme,setTheme, setIsAuthenticated}=useContext(Context)
+    const [isMenuOpen, setIsMenuOpen]=useState(false)
+    const profileRef = useRef(null);
     const getAllThreads=async()=>{
         try {
             const response= await fetch("http://localhost:8080/api/thread")
@@ -68,6 +70,34 @@ getAllThreads()
                 
             }
         }
+        useEffect(() => {
+  const handleClickOutside = (event) => {
+    if (
+      profileRef.current &&
+      !profileRef.current.contains(event.target)
+    ) {
+      setIsMenuOpen(false);
+    }
+  };
+
+  document.addEventListener("mousedown", handleClickOutside);
+
+  return () => {
+    document.removeEventListener("mousedown", handleClickOutside);
+  };
+}, []);
+
+const handleLogout = () => {
+
+  // JWT token remove
+  localStorage.removeItem("token");
+
+  // authentication false
+  setIsAuthenticated(false);
+
+  // profile menu close
+  setIsMenuOpen(false);
+};
     return (
         <section className='Sidebar'>
             {/* new chat btn */}
@@ -98,7 +128,47 @@ getAllThreads()
             </ul>
 
         {/* Sign in */}
-        <p className='sign'>My page &hearts;</p>
+          <section
+  className="profile"
+  ref={profileRef}
+  onClick={() => setIsMenuOpen(!isMenuOpen)}
+>
+
+  <div className="avatar">
+    AP
+  </div>
+
+  <div className="user-info">
+    <h3>Anamika</h3>
+    <p>Free Plan</p>
+  </div>
+
+  <div className="arrow" >
+    {isMenuOpen ? "▲" : "▼"}
+  </div>
+    <div className={`profile-menu ${isMenuOpen ? "show" : ""}`}>
+  <div>👤 My Profile</div>
+  <div
+  onClick={() =>
+    setTheme(theme === "dark" ? "light" : "dark")
+  }
+>
+  {theme === "dark" ? "☀️ Light Mode" : "🌙 Dark Mode"}
+</div>
+  <div>⚙️ Settings</div>
+  <hr />
+<div
+  className="logout"
+  onClick={(e) => {
+    e.stopPropagation();
+    handleLogout();
+  }}
+>
+  🚪 Logout
+</div>
+</div>
+
+</section>
            
            
         </section>

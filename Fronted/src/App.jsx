@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import Sidebar from "./Sidebar";
 import ChatWindow from "./ChatWindow";
 import Login from "./pages/Login";
@@ -16,6 +16,7 @@ function App() {
   const [prevChats, setPrevChats] = useState([]);
   const [newChat, setNewChat] = useState(true);
   const [allThreads, setAllThreads] = useState([]);
+  const [theme, setTheme] = useState("dark");
 
   const [isAuthenticated, setIsAuthenticated] = useState(
     !!localStorage.getItem("token")
@@ -36,7 +37,11 @@ function App() {
     setAllThreads,
     isAuthenticated,
     setIsAuthenticated,
+    theme,setTheme
   };
+  useEffect(() => {
+  document.body.className = theme;
+}, [theme]);
 
   return (
     <Context.Provider value={providerValues}>

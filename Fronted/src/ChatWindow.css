@@ -1,85 +1,166 @@
+/* ==========================
+   CHAT WINDOW
+========================== */
+
 .chatWindow{
-    background-color: #212121;
-    height: 100vh;
-    width: 100%;
+    flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content:space-between ;
-    align-items: center;
+    justify-content: space-between;
+    background: var(--app-bg);
+    min-height: 100vh;
 }
+
+/* ==========================
+   NAVBAR
+========================== */
+
 .navbar{
-   width: 100%;
-   display: flex;
-   justify-content: space-between;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 20px 32px;
+    border-bottom: 1px solid var(--border);
+}
+
+.navbar span{
+    margin: 0;
+    color: var(--text);
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.userIconDiv{
+    display: flex;
     align-items: center;
 }
-.navbar span{
-    margin: 1rem 2rem;
-}
-.userIconDiv{
-    margin: 1rem 2rem;
-}
+
 .userIcon{
-    background-color: #339cff;
-    height: 25px;
-    width: 25px;
+    width: 42px;
+    height: 42px;
+
     border-radius: 50%;
+
+    background: #339cff;
+    color: white;
+
     display: flex;
     justify-content: center;
     align-items: center;
-   cursor: pointer;
+
+    font-weight: 600;
+    cursor: pointer;
+
+    transition: .25s;
 }
 
-/* chat box */
+.userIcon:hover{
+    transform: scale(1.05);
+}
+
+/* ==========================
+   CHAT INPUT
+========================== */
 
 .chatInput{
     width: 100%;
+
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+
+    padding: 20px;
+
+    border-top: 1px solid var(--border);
 }
+
 .inputBox{
     width: 100%;
+    max-width: 800px;
+
     position: relative;
-    max-width: 700px;
-     display: flex;
-    justify-content: center;
+
+    display: flex;
     align-items: center;
 }
-input{
-    width: 100%;
-    border: none;
-    background-color: rgba(255, 255, 255, 0.05);
-    padding: 20px;
-    font-size: 0.8rem;
-    border-radius: 14px;
-    box-shadow: rgba(0, 0, 0, 0.05)0 54px 55px,
-                rgba(0, 0, 0, 0.05)0 -12px 30px,
-                rgba(0, 0, 0, 0.05)0 4px 6px,
-                rgba(0, 0, 0, 0.05)0 12px 3px,
-                rgba(0, 0, 0, 0.05)0 -3px 5px,
 
+/* ==========================
+   INPUT
+========================== */
+
+.inputBox input{
+    width: 100%;
+
+    padding: 18px 60px 18px 20px;
+
+    border-radius: 18px;
+    border: 1px solid var(--border);
+
+    background: var(--card-bg);
+    color: var(--text);
+
+    font-size: 1rem;
+
+    box-shadow: var(--shadow);
+
+    transition: .25s;
 }
-input:focus{
+
+.inputBox input::placeholder{
+    color: var(--text-secondary);
+}
+
+.inputBox input:focus{
     outline: none;
+    border-color: #339cff;
 }
+
+/* ==========================
+   SEND BUTTON
+========================== */
+
 #submit{
-    cursor: pointer;
-    height: 35px;
-    width: 35px;
     position: absolute;
-    font-size: 20px;
-    right: 15px;
+    right: 12px;
+
+    width: 42px;
+    height: 42px;
+
     display: flex;
     justify-content: center;
     align-items: center;
+
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    transition: .25s;
 }
-#submit i:hover{
-    color: #fff;
+
+#submit i{
+    color: var(--text-secondary);
+    font-size: 1.25rem;
 }
+
+#submit:hover i{
+    color: #339cff;
+}
+
+#submit:hover{
+    transform: scale(1.08);
+}
+
+/* ==========================
+   FOOTER INFO
+========================== */
+
 .info{
-    font-size: 0.8rem;
-    padding: 0.5rem;
-    color: #b4b4b4;
+    margin-top: 10px;
+
+    font-size: .85rem;
+    color: var(--text-secondary);
+
+    text-align: center;
 }

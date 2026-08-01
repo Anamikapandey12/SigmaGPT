@@ -1,61 +1,204 @@
+/* ==========================
+   CHAT CONTAINER
+========================== */
+
 .chat{
-max-width: 700px;
-overflow-y: auto;
- scrollbar-width: thin;          /* Firefox */
-  scrollbar-color: #555 #202123;
-padding: 8rem;
+    width:100%;
+    max-width:900px;
+    margin:0 auto;
+    padding:32px 24px;
+    overflow-y:auto;
 }
-.chat::-webkit-scrollbar {
-  width: 8px;
+
+/* ==========================
+   EMPTY CHAT
+========================== */
+
+.chat h1{
+    flex:1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+
+    font-size:3rem;
+    font-weight:700;
+
+    color:var(--text);
+
+    opacity:.9;
 }
-.userDiv {
-    display: flex;
-    justify-content: flex-end;
-    margin: 16px 0;
+
+/* ==========================
+   USER MESSAGE
+========================== */
+
+.userDiv{
+    display:flex;
+    justify-content:flex-end;
+    margin:24px 0;
 }
-.chat::-webkit-scrollbar-track {
-  background: #202123;
-  border-radius: 10px;
+
+.userMessage{
+    max-width:75%;
+
+    padding:12px 18px;
+
+    background:var(--card-bg);
+    color:var(--text);
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+    line-height:1.6;
+
+    word-break:break-word;
 }
+
+/* ==========================
+   GPT MESSAGE
+========================== */
+
 .gptDiv{
-  text-align: left;
-  font-size: 0.9rem;
-}
-.chat::-webkit-scrollbar-thumb {
-  background: #555;
-  border-radius: 10px;
+    display:flex;
+    flex-direction:column;
+
+    margin:24px 0;
+
+    text-align:left;
+
+    font-size:1rem;
 }
 
-.chat::-webkit-scrollbar-thumb:hover {
-  background: #777;
-}
-.userMessage {
-    background: #2f2f2f;
-    color: #fff;
-    padding: 12px 18px;
-    border-radius: 18px;
-    max-width: 70%;
-    width: fit-content;
-    word-wrap: break-word;
-    line-height: 1.5;
-}
-.hljs{border-radius: 14px !important;
+.gptMessage{
+    color:var(--text);
 
+    line-height:1.8;
+
+    animation:fadeIn .3s ease;
 }
-pre{
-  white-space: pre-wrap;
-}
+
 .gptMessage p{
-    display: inline;
+    margin:12px 0;
 }
-.cursor {
-    margin-left: 0;
-    display: inline;
-    animation: blink 1s steps(1) infinite;
+
+.gptMessage a{
+    color:#3b82f6;
+    text-decoration:none;
+
+    transition:.25s;
+}
+
+.gptMessage a:hover{
+    text-decoration:underline;
+}
+
+/* ==========================
+   INLINE CODE
+========================== */
+
+.gptMessage code{
+    background:var(--card-bg);
+
+    color:var(--text);
+
+    padding:3px 7px;
+
+    border-radius:6px;
+
+    font-size:.9rem;
+}
+
+/* ==========================
+   CODE BLOCK
+========================== */
+
+.gptMessage pre{
+    margin:16px 0;
+
+    padding:18px;
+
+    background:var(--card-bg);
+
+    border:1px solid var(--border);
+
+    border-radius:16px;
+
+    overflow-x:auto;
+}
+
+.hljs{
+    border-radius:14px !important;
+}
+
+pre{
+    white-space:pre-wrap;
+}
+
+/* ==========================
+   COPY BUTTON
+========================== */
+
+.copyBtn{
+    margin-top:10px;
+    margin-left:auto;
+
+    display:flex;
+    align-items:center;
+    gap:6px;
+
+    padding:8px 12px;
+
+    background:transparent;
+
+    border:none;
+
+    color:var(--text-secondary);
+
+    cursor:pointer;
+
+    transition:.25s;
+}
+
+.copyBtn:hover{
+    color:var(--text);
+
+    transform:translateY(-1px);
+}
+
+/* ==========================
+   CURSOR
+========================== */
+
+.cursor{
+    display:inline;
+    animation:blink 1s steps(1) infinite;
 }
 
 @keyframes blink{
+
     50%{
         opacity:0;
     }
+
+}
+
+/* ==========================
+   MESSAGE ANIMATION
+========================== */
+
+@keyframes fadeIn{
+
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
 }
