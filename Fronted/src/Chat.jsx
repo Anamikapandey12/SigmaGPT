@@ -41,7 +41,7 @@ function Chat() {
         setShowCursor(false)
       clearInterval(interval);
     }
-  }, 300);
+  }, 30);
 
   return () => clearInterval(interval);
 }, [reply]);
@@ -65,92 +65,100 @@ const copyToClipboard = async (text, index) => {
   } catch (err) {
     console.log(err);
   }
-};
-    return (
-        
-        <>
-        {newChat && <h1>Start a new Chat!</h1>}
-        <div className="chat" ref={chatRef}>
-            {prevChats.slice(0, -1).map((chat, idx) => (
-  <div
-    className={chat.role === "user" ? "userDiv" : "gptDiv"}
-    key={idx}
-  >
-    {chat.role === "user" ? (
-      <p className="userMessage">{chat.content}</p>
-    ) : (
-      <div className="gptMessage">
-  <ReactMarkdown
-    rehypePlugins={[rehypeHighlight]}
-    remarkPlugins={[remarkGfm]}
-  >
-    {chat.content}
-  </ReactMarkdown>
-
-<button
-  className="copyBtn"
-  onClick={() => copyToClipboard(chat.content, idx)}
->
-    <i className="fa-regular fa-copy"></i>
-    {copiedIndex===idx ? "Copied" : "Copy"}
-</button>
-</div>
-    )}
-  </div>
-))}
-{
-  prevChats.length > 0 && (
-    latestReply === null ? (
-     <div className="gptDiv" key="non-typing">
-  <div className="gptMessage">
-    <ReactMarkdown
-      rehypePlugins={[rehypeHighlight]}
-      remarkPlugins={[remarkGfm]}
+};return (
+  <>
+    <div
+      className={`chat ${newChat ? "chatCenter" : ""}`}
+      ref={chatRef}
     >
-      {prevChats[prevChats.length - 1].content}
-    </ReactMarkdown>
-
-    <button
-      className="copyBtn"
-      onClick={() =>
-        copyToClipboard(
-          prevChats[prevChats.length - 1].content,
-          "latest"
-        )
-      }
-    >
-      <i className="fa-regular fa-copy"></i>
-      {copiedIndex === "latest" ? "Copied" : "Copy"}
-    </button>
-  </div>
-</div>
-    ) : (
-     <div className="gptDiv" key="typing">
-  <div className="gptMessage">
-    <ReactMarkdown
-      rehypePlugins={[rehypeHighlight]}
-      remarkPlugins={[remarkGfm]}
-    >
-      {showCursor ? latestReply + "▌" : latestReply}
-    </ReactMarkdown>
-
-    {!showCursor && (
-      <button
-        className="copyBtn"
-        onClick={() => copyToClipboard(latestReply, "latest")}
-      >
-        <i className="fa-regular fa-copy"></i>
-        {copiedIndex === "latest" ? "Copied" : "Copy"}
-      </button>
-    )}
-  </div>
-</div>
-    )
-  )
-}   
+      {newChat ? (
+        <div className="newChat">
+          <h1>What’s on your mind today?</h1>
         </div>
+      ) : (
+        <>
+          {prevChats.slice(0, -1).map((chat, idx) => (
+            <div
+              className={chat.role === "user" ? "userDiv" : "gptDiv"}
+              key={idx}
+            >
+              {chat.role === "user" ? (
+                <p className="userMessage">{chat.content}</p>
+              ) : (
+                <div className="gptMessage">
+                  <ReactMarkdown
+                    rehypePlugins={[rehypeHighlight]}
+                    remarkPlugins={[remarkGfm]}
+                  >
+                    {chat.content}
+                  </ReactMarkdown>
+
+                  <button
+                    className="copyBtn"
+                    onClick={() => copyToClipboard(chat.content, idx)}
+                  >
+                    <i className="fa-regular fa-copy"></i>
+                    {copiedIndex === idx ? "Copied" : "Copy"}
+                  </button>
+                </div>
+              )}
+            </div>
+          ))}
+
+          {prevChats.length > 0 &&
+            (latestReply === null ? (
+              <div className="gptDiv" key="non-typing">
+                <div className="gptMessage">
+                  <ReactMarkdown
+                    rehypePlugins={[rehypeHighlight]}
+                    remarkPlugins={[remarkGfm]}
+                  >
+                    {prevChats[prevChats.length - 1].content}
+                  </ReactMarkdown>
+
+                  <button
+                    className="copyBtn"
+                    onClick={() =>
+                      copyToClipboard(
+                        prevChats[prevChats.length - 1].content,
+                        "latest"
+                      )
+                    }
+                  >
+                    <i className="fa-regular fa-copy"></i>
+                    {copiedIndex === "latest" ? "Copied" : "Copy"}
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="gptDiv" key="typing">
+                <div className="gptMessage">
+                  <ReactMarkdown
+                    rehypePlugins={[rehypeHighlight]}
+                    remarkPlugins={[remarkGfm]}
+                  >
+                    {showCursor ? latestReply + "▌" : latestReply}
+                  </ReactMarkdown>
+
+                  {!showCursor && (
+                    <button
+                      className="copyBtn"
+                      onClick={() =>
+                        copyToClipboard(latestReply, "latest")
+                      }
+                    >
+                      <i className="fa-regular fa-copy"></i>
+                      {copiedIndex === "latest" ? "Copied" : "Copy"}
+                    </button>
+                  )}
+                </div>
+              </div>
+            ))}
         </>
-    )
+      )}
+    </div>
+  </>
+);
 }
 
 export default Chat

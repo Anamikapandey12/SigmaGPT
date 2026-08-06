@@ -2,32 +2,43 @@
    CHAT CONTAINER
 ========================== */
 
-.chat{
-    width:100%;
-    max-width:900px;
-    margin:0 auto;
-    padding:32px 24px;
-    overflow-y:auto;
+.chat {
+    flex: 1;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+    overflow-y: auto;
 }
+.chatCenter{
+    height:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.newChat h1{
+    font-size:2.5rem;
+    font-weight:700;
+    color:var(--text);
+}
+
+.newChat {
+    text-align: center;
+}
+
+
 
 /* ==========================
    EMPTY CHAT
 ========================== */
 
 .chat h1{
-    flex:1;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
     text-align:center;
-
-    font-size:3rem;
-    font-weight:700;
-
+    font-size:2rem;      /* 32px */
+    font-weight:600;
     color:var(--text);
-
-    opacity:.9;
+    margin-top:30vh;
 }
 
 /* ==========================
@@ -37,13 +48,14 @@
 .userDiv{
     display:flex;
     justify-content:flex-end;
-    margin:24px 0;
+    margin:28px 0;
 }
 
 .userMessage{
     max-width:75%;
 
-    padding:12px 18px;
+    padding:14px 18px;
+    font-size: 15px;
 
     background:var(--card-bg);
     color:var(--text);
@@ -65,7 +77,7 @@
     display:flex;
     flex-direction:column;
 
-    margin:24px 0;
+    margin:28px 0;
 
     text-align:left;
 
@@ -75,13 +87,30 @@
 .gptMessage{
     color:var(--text);
 
-    line-height:1.8;
+   max-width: 760px;
+    line-height: 1.8;
 
     animation:fadeIn .3s ease;
 }
 
 .gptMessage p{
     margin:12px 0;
+}
+.gptMessage h1{
+    font-size: 30px;
+    margin: 18px 0;
+}
+
+.gptMessage h2{
+    font-size: 24px;
+}
+
+.gptMessage ul{
+    padding-left: 22px;
+}
+
+.gptMessage li{
+    margin: 8px 0;
 }
 
 .gptMessage a{
@@ -140,27 +169,22 @@ pre{
 /* ==========================
    COPY BUTTON
 ========================== */
-
 .copyBtn{
-    margin-top:10px;
-    margin-left:auto;
-
-    display:flex;
-    align-items:center;
-    gap:6px;
-
-    padding:8px 12px;
-
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+    padding: 6px 10px;
+    font-size: 14px;
     background:transparent;
-
-    border:none;
-
-    color:var(--text-secondary);
-
+    
     cursor:pointer;
+     color:var(--text-secondary);
+     transition:.25s;
+       border:none;
 
-    transition:.25s;
 }
+
 
 .copyBtn:hover{
     color:var(--text);

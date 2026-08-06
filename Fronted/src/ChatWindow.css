@@ -120,8 +120,7 @@
 /* ==========================
    SEND BUTTON
 ========================== */
-
-#submit{
+#submit {
     position: absolute;
     right: 12px;
 
@@ -133,25 +132,64 @@
     align-items: center;
 
     border-radius: 50%;
-
     cursor: pointer;
-
     transition: .25s;
 }
 
+#mic {
+    position: absolute;
+    right: 60px;   /* Move mic to the left of send button */
+
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+    cursor: pointer;
+    transition: .25s;
+}
+#mic i,
 #submit i{
     color: var(--text-secondary);
     font-size: 1.25rem;
 }
-
+#mic:hover i,
 #submit:hover i{
     color: #339cff;
 }
-
+#submit:hover,
 #submit:hover{
     transform: scale(1.08);
 }
 
+.listening {
+    background: #ff3b30 !important;
+    animation: pulse 1.2s infinite;
+}
+
+.listening i {
+    color: white !important;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255,59,48,.5);
+    }
+
+    70% {
+        transform: scale(1.08);
+        box-shadow: 0 0 0 12px rgba(255,59,48,0);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255,59,48,0);
+    }
+}
 /* ==========================
    FOOTER INFO
 ========================== */
@@ -163,4 +201,10 @@
     color: var(--text-secondary);
 
     text-align: center;
+}
+.loader-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
 }

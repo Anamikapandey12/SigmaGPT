@@ -3,6 +3,7 @@ import Sidebar from "./Sidebar";
 import ChatWindow from "./ChatWindow";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Profile from "./pages/Profile"
 import { Context } from "./Context";
 import { v4 as uuid } from "uuid";
 import "./App.css";
@@ -21,6 +22,7 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(
     !!localStorage.getItem("token")
   );
+  const [currentPage, setCurrentPage] = useState("chat");
 
   const providerValues = {
     prompt,
@@ -37,7 +39,9 @@ function App() {
     setAllThreads,
     isAuthenticated,
     setIsAuthenticated,
-    theme,setTheme
+    theme,setTheme,
+    currentPage,
+  setCurrentPage
   };
   useEffect(() => {
   document.body.className = theme;
@@ -47,9 +51,14 @@ function App() {
     <Context.Provider value={providerValues}>
       {isAuthenticated ? (
         <div className="app">
-          <Sidebar />
-          <ChatWindow />
-        </div>
+  <Sidebar />
+
+  {currentPage === "chat" ? (
+    <ChatWindow />
+  ) : (
+    <Profile />
+  )}
+</div>
       ) : showLogin ? (
         <Login setShowLogin={setShowLogin} />
       ) : (

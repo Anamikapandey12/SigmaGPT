@@ -5,7 +5,7 @@ import "./Login.css";
 
 import "./Login.css";
 function Login({ setShowLogin })  {
-    const { setIsAuthenticated } = useContext(Context);
+const { setIsAuthenticated } = useContext(Context);
 
 
   const [email, setEmail] = useState("");
@@ -31,6 +31,8 @@ function Login({ setShowLogin })  {
       if (response.ok) {
         // JWT token save
         localStorage.setItem("token", data.token);
+         localStorage.setItem("user", JSON.stringify(data.user));
+
 
        setIsAuthenticated(true);
 

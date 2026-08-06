@@ -6,9 +6,10 @@ import { v4 as uuid } from "uuid";
 
 
 function Sidebar() {
-    const{allThreads,setAllThreads,currThreadId,threadId,setNewChat,setPrompt,setReply,setCurrThreadId,setPrevChats,theme,setTheme, setIsAuthenticated}=useContext(Context)
+    const{allThreads,setAllThreads,currThreadId,threadId,setNewChat,setPrompt,setReply,setCurrThreadId,setPrevChats,theme,setTheme, setIsAuthenticated,currentPage, setCurrentPage}=useContext(Context)
     const [isMenuOpen, setIsMenuOpen]=useState(false)
     const profileRef = useRef(null);
+    const user = JSON.parse(localStorage.getItem("user"));
     const getAllThreads=async()=>{
         try {
             const response= await fetch("http://localhost:8080/api/thread")
@@ -28,6 +29,7 @@ getAllThreads()
     },[]);
 
     const createNewChat=()=>{
+        setCurrentPage("chat");
         setNewChat(true),
         setPrompt(""),
         setReply(null),
@@ -37,6 +39,7 @@ getAllThreads()
       
     }
       const changeThread=async (newThreadId)=>{
+            setCurrentPage("chat");
             setCurrThreadId(newThreadId)
             try {
                const response = await fetch(`http://localhost:8080/api/thread/${newThreadId}`);
@@ -91,6 +94,7 @@ const handleLogout = () => {
 
   // JWT token remove
   localStorage.removeItem("token");
+  localStorage.removeItem("user");
 
   // authentication false
   setIsAuthenticated(false);
@@ -123,8 +127,7 @@ const handleLogout = () => {
 
                 ))
              }
-             
-                 
+                   
             </ul>
 
         {/* Sign in */}
@@ -135,11 +138,11 @@ const handleLogout = () => {
 >
 
   <div className="avatar">
-    AP
+    {user?.name?.charAt(0).toUpperCase()}
   </div>
 
   <div className="user-info">
-    <h3>Anamika</h3>
+   <h3>{user?.name}</h3>
     <p>Free Plan</p>
   </div>
 
@@ -147,7 +150,16 @@ const handleLogout = () => {
     {isMenuOpen ? "▲" : "▼"}
   </div>
     <div className={`profile-menu ${isMenuOpen ? "show" : ""}`}>
-  <div>👤 My Profile</div>
+  <div
+  className="menu-item"
+  onClick={(e) => {
+    e.stopPropagation();
+    setCurrentPage("profile");
+    setIsMenuOpen(false);
+  }}
+>
+  👤 My Profile
+</div>
   <div
   onClick={() =>
     setTheme(theme === "dark" ? "light" : "dark")

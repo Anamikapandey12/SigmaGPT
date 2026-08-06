@@ -1,0 +1,147 @@
+.profilePage{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--app-bg);
+    padding: 40px;
+}
+
+.profileCard{
+    width: 420px;
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 35px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,.25);
+    transition: .3s;
+}
+
+.profileCard:hover{
+    transform: translateY(-4px);
+}
+
+.profileAvatar{
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: #339cff;
+    color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.profileCard h2{
+    margin: 10px 0 6px;
+    color: var(--text);
+    font-size: 28px;
+}
+
+.plan{
+    color: var(--text-secondary);
+    margin-bottom: 25px;
+    font-size: 15px;
+}
+
+.profileInfo{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.infoItem{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 14px 18px;
+
+    background: var(--hover);
+    border-radius: 12px;
+}
+
+.infoLabel{
+    color: var(--text-secondary);
+    font-size: 15px;
+}
+
+.infoValue{
+    color: var(--text);
+    font-weight: 600;
+}
+
+.editBtn{
+    width: 100%;
+    margin-top: 30px;
+    padding: 14px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: #339cff;
+    color: white;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: .25s;
+}
+
+.editBtn:hover{
+    background: #1f86f7;
+}
+
+.logoutBtn{
+    width: 100%;
+    margin-top: 15px;
+    padding: 14px;
+
+    border: 1px solid #ef4444;
+    border-radius: 12px;
+
+    background: transparent;
+    color: #ef4444;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: .25s;
+}
+
+.logoutBtn:hover{
+    background: #ef4444;
+    color: white;
+}
+
+@media(max-width:768px){
+
+    .profilePage{
+        padding:20px;
+    }
+
+    .profileCard{
+        width:100%;
+        max-width:380px;
+        padding:25px;
+    }
+
+    .profileAvatar{
+        width:75px;
+        height:75px;
+        font-size:28px;
+    }
+
+    .profileCard h2{
+        font-size:24px;
+    }
+
+}
